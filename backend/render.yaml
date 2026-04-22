@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: nepse-scraper
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: PORT
+        value: 10000
+      - key: DB_PATH
+        value: /var/data/nepse.db
+      - key: CRON_SCHEDULE
+        value: "0 18 * * 0-4"
+      # Uncomment and set SCRAPE_TOKEN in Render dashboard to protect POST /api/scrape
+      # - key: SCRAPE_TOKEN
+      #   sync: false
+    disk:
+      name: nepse-data
+      mountPath: /var/data
+      sizeGB: 1
